@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ImageBackground, SafeAreaView, ScrollView, FlatList} from 'react-native';
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
@@ -6,7 +6,7 @@ import InputValidation from './components/InputValidator'
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
-
+  const flatList = useRef(0)
   function addGoalHandler(enteredGoalText) {
     if (InputValidation(enteredGoalText)){
       setCourseGoals((currentCourseGoals) => [...courseGoals, {text: enteredGoalText, key: Math.random().toString()}]);
@@ -22,11 +22,15 @@ export default function App() {
       <View style={styles.appContainer}>     
         <GoalInput onAddGoal={addGoalHandler} />
         <View style={styles.goalsListContainer}>
-          <FlatList style={styles.goalsContainer} data={courseGoals} renderItem={(itemData) => {
+          <FlatList 
+          ref={flatList} 
+          style={styles.goalsContainer}
+          onContentSizeChange={()=> {flatList.current.scrollToEnd()}}
+          data={courseGoals} renderItem={(itemData) => {
             return(
                     GoalItem(itemData)
             )
-          }} />
+          } } />
         </View>
       </View>
       </ImageBackground>

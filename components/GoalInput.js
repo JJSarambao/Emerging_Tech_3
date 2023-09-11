@@ -6,6 +6,7 @@ function GoalInput(props) {
     function addGoalHandler() {
         props.onAddGoal(enteredGoalText);
         setInputTextValue('');
+        setEnteredGoalText('');
     };
     function goalInputHandler(enteredText){
         setEnteredGoalText(enteredText);
@@ -29,8 +30,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:'center',
-        paddingBottom: 24,
-        borderBottomWidth: 1,
+        paddingBottom: "40%"
       },
       inputText:{
         backgroundColor:"#FD7000",
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         width: "70%",
         marginRight: 8,
-        padding: 13
+        padding: 13,
+        fontSize:20
       }
 });
